@@ -1,0 +1,55 @@
+
+/**
+ * The cards
+ *
+ * Each card plays home to a front and back. I've set them up as squares here
+ * by using the padding technique, but you may set them up in any dimensions
+ * you like based on your site design.
+ */
+.card {
+  position: relative;
+  margin: 5px 0 0 5px;
+  float: left;
+  width: var(--card-width);
+  height: var(--card-height);
+}
+
+/* card fronts and backs */
+.card__front,
+.card__back {
+  margin: 5px 0 0 5px;
+  position: absolute;
+  width: var(--card-width);
+  height: var(--card-height);
+}
+
+.card__front,
+.card__back {
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  -webkit-transition: -webkit-transform 0.3s;
+          transition: transform 0.3s;
+}
+
+.card__front {
+  background-color: #e1e2d5;
+/*  background-color: #ff5078;*/
+}
+
+.card__back {
+  background-color: #1e1e1e;
+  -webkit-transform: rotateY(-180deg);
+          transform: rotateY(-180deg);
+}
+
+/* click effect */
+.card.effect__click.flipped .card__front {
+  -webkit-transform: rotateY(-180deg);
+          transform: rotateY(-180deg);
+}
+
+.card.effect__click.flipped .card__back {
+  -webkit-transform: rotateY(0);
+          transform: rotateY(0);
+}
+

@@ -1,0 +1,130 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Matching Game</title>
+    <script type="text/javascript" src="src/js/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="src/js/opentype.js"></script>
+    <script src="src/js/flipclock.min.js"></script>
+    <link href="src/css/site.css" rel="stylesheet">
+    <link href="src/css/demo.css" rel="stylesheet">
+    <link rel="stylesheet" href="src/css/flipclock.css">
+
+    <style media="screen">
+    html {
+      background: url(src/images/bg/car2.jpg) no-repeat center center fixed; 
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
+    }
+    </style>
+
+</head>
+<body onload="initFont()">
+    <div id="flip-container" class="flip-container" ontouchstart="this.classList.toggle('hover');">
+      <div id="sel-button" class="sel-button">
+       <button id="homePage" class="homePage" title="Home Page" onclick="clickedHomePage()">
+         <img  width="auto" height="100"  src="src/images/homePage.png" /></button>
+       <button id="startButton" class="startButton" title="Start Game" onclick="playStart()">
+         <img  width="auto" height="100" src="src/images/startButton.png" /></button>
+       <button id="pauseButton" class="pauseButton" title="Pause" onclick="pauseGame()">
+         <img width="auto" height="100" src="src/images/pauseButton.png" /></button>
+       <button id="restartButton" class="restartButton" title="Restart" onclick="restartGame()">
+         <img width="auto" height="100" src="src/images/restartButton.png" /></button>
+       <button id="quitButton" class="quitButton" title="Quit" onclick="quitGame()">
+         <img width="auto" height="100" src="src/images/quitButton.png" /></button>
+       <button id="missedButton" class="missedButton" >Missed:</button>
+       <button id="counterButton" class="counterButton" >00:00:000</button>
+      </div><!--<div id='missCounter' class='missCounter'></div><div id='mytimer' class='clock'></div>-->
+
+      <div id="cardList" class="cardList"></div>
+      <!-- game level buttobs -->
+      <div id="menuGroup" class="menuGroup">
+        <!--
+        <div id="menuSelection" class="menuSelection" >
+          <button id="chineseButton" class="chineseButton" onclick="chineseGroupClicked()">中文</button>
+          <button id="englishButton" class="englishButton" onclick="englishGroupClicked()">English</button>
+        </div>
+      -->
+        <div id="englishGroup" class="englishGroup">
+          <div id="level1" class="levelButton" onclick="newGame(1)">
+            <img width="auto" height="80" src="src/images/nav/level1.png"/>
+          </div>
+          <div id="level2" class="levelButton" onclick="newGame(2)">
+            <img width="auto" height="80" src="src/images/nav/level2.png"/>
+          </div>
+          <div id="level3" class="levelButton" onclick="newGame(3)">
+            <img width="auto" height="80" src="src/images/nav/level3.png"/>
+          </div>
+        <!--
+          <div><div class="dropdown"><button class="chineseLevelButton">Easy</button>
+            <div class="dropdown-content">
+              <div><img width="auto" height="60" text-align="right" src="src/images/nav/level1.png" onclick="newGame(1, 'auto')"></div>
+              <div><img width="auto" height="60" text-align="right" src="src/images/nav/level2.png" onclick="newGame(2, 'auto')"></div>
+              <div><img width="auto" height="60" text-align="right" src="src/images/nav/level3.png" onclick="newGame(3, 'auto')"></div>
+            </div>
+          </div></div>
+          <div><div class="dropdown"><button class="chineseLevelButton">Medium</button>
+            <div class="dropdown-content">
+              <div><img width="auto" height="60" text-align="right" src="src/images/nav/level1.png" onclick="newGame(1, 'landscape')"></div>
+              <div><img width="auto" height="60" text-align="right" src="src/images/nav/level2.png" onclick="newGame(2, 'landscape')"></div>
+              <div><img width="auto" height="60" text-align="right" src="src/images/nav/level3.png" onclick="newGame(3, 'landscape')"></div>
+            </div>
+          </div></div>
+          <div class="dropdown"><button class="chineseLevelButton">Advanced</button>
+            <div class="dropdown-content">
+              <div><img width="auto" height="60" text-align="right" src="src/images/nav/level1.png" onclick="newGame(1, 'chinese')"></div>
+              <div><img width="auto" height="60" text-align="right" src="src/images/nav/level2.png" onclick="newGame(2, 'chinese')"></div>
+              <div><img width="auto" height="60" text-align="right" src="src/images/nav/level3.png" onclick="newGame(3, 'chinese')"></div>
+            </div>
+          </div>
+        </div>
+        <div id="chineseGroup" class="chineseGroup">
+          
+          <div class="dropdown"><button class="chineseLevelButton" onclick="newGame(1)">初級</button>
+            <div class="dropdown-content">
+              <div><img width="auto" height="60" text-align="right" src="src/images/nav/level1.png" onclick="newGame(1)"></div>
+              <div><img width="auto" height="60" text-align="right" src="src/images/nav/level2.png" onclick="newGame(2)"></div>
+              <div><img width="auto" height="60" text-align="right" src="src/images/nav/level3.png" onclick="newGame(3)"></div>
+            </div>
+          </div>
+          <div><button class="chineseLevelButton" onclick="newGame(2)">中級</button></div>
+          <div><button class="chineseLevelButton" onclick="newGame(3)">高級</button></div>
+        </div>
+      -->
+      </div>
+  </div>
+
+      <div class="pauseScreen" onclick="resumeGame()" style="display: none;">
+          <img src="src/images/pauseScreen.png">
+      </div>
+      <div class="completeScreen" style="display: none;">
+          <img src="src/images/completeScreen.gif">
+      </div>
+      <div class="failedScreen" style="display: none;">
+          <img src="src/images/failedScreen.gif">
+      </div>
+  
+  <script type="text/javascript" src="src/js/matchGame.js"></script>
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="close">&times;</span>
+        <h2></h2>
+      </div>
+      <div class="modal-body">
+        <button id="quitGameDialog" class="quitGameDialog" >
+          <img width="auto" height="100" src="src/images/quitGameDialog.png" /></button>
+      </div>
+      <div class="modal-footer">
+        <button id="yesButton" class="yesButton" onclick="quitYesButton()">
+          <img width="auto" height="80" src="src/images/yes.png" /></button>
+        <button id="noButton" class="noButton" onclick="quitNoButton()">
+            <img width="auto" height="80" src="src/images/no.png" /></button>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
